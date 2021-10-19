@@ -13,6 +13,6 @@ To accomplish this, I was given starter code that initialized a function to kick
 To see my finished product, visit [here](https://adairconlin.art/password-generator/)
 The page will look like this:
 
-![webpage-preview](assets/images/screenshot.png)
+![preview](assets/images/screenshot.PNG)
 
 All you have to do it select "Generate Password" and follow the prompts to specifiy what you want in your password!
