@@ -24,7 +24,7 @@ let characterCheck = function(characterType, passwordLength) {
         if(characterArr[i] === "uppercase" || characterArr[i] === "lowercase" || characterArr[i] === "numeric" || characterArr[i] === "special") {
             x = x + 0;
         } else {
-            window.alert(characterArr[i] + " is invalid. Please try again.");
+            window.alert('"' + characterArr[i] + '"' + " is invalid. Please try again.");
             x = x + 1;
         }
     }
