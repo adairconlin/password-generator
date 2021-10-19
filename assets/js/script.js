@@ -5,7 +5,7 @@ let confirmPrompts = function(characterType, passwordLength) {
         window.alert("Thank you. You password will now be generated.");
     } else {
         window.alert("Sorry, please re-enter.")
-        lengthPrompt();
+        generatePassword();
     }
 }
 
