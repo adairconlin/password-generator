@@ -1,15 +1,15 @@
 // Prompts user for input on the desired character types. They must include at least one.
 let confirmPrompts = function(characterType) {
-    let characterConfirm = window.confirm("You selected " + characterType + ", is this correct?");
-    if(characterConfirm) {
-        window.alert("Thank you. Password will now be generated.")
+    let promptConfirm = window.confirm("You selected a length of:" + ", and you selected these characters: " + characterType + ", is this correct?");
+    if(promptConfirm) {
+        window.alert("Thank you. Password will now be generated.");
     } else {
         window.alert("Please re-enter.")
-        characters();
+        length();
     }
 }
 
-// Goes through the characterArr to make sure user inputs are all valid character type options.
+// Goes through the characterArr[] to make sure user inputs are all valid character type options.
 let characterCheck = function(characterType) {
     // Sorts desired character types into an array based on user input format.
     let characterArr = [];
@@ -21,17 +21,23 @@ let characterCheck = function(characterType) {
         console.log(characterArr);
     };
 
-    // Checks for valid inputs.
-    //Function keep repeating incorrectly after an invalid input. Try while Loop?
+    // Checks for valid inputs. The variable 'x' helps keep track of whether the input is valid or not.
+    let x = 0;
     for(let i = 0; i < characterArr.length; i++) {
         if(characterArr[i] === "uppercase" || characterArr[i] === "lowercase" || characterArr[i] === "numeric" || characterArr[i] === "special characters") {
-            console.log(characterArr[i] + " is valid!");
+            x = x + 0;
         } else {
             window.alert(characterArr[i] + " is invalid. Please try again.");
-            characters();
+            x = x + 1;
         }
     }
-    confirmPrompts(characterType);
+
+    // Reads the value of 'x'; if x is greater than 0, this means that there was an invalid entry.
+    if(x == 0) {
+        confirmPrompts(characterType);
+    } else if(x > 0) {
+        characters();
+    }
 }
 
 // Prompts user for input on their desired character types for the generated password.
