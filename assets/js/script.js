@@ -2,7 +2,7 @@
 let confirmPrompts = function(characterType, passwordLength) {
     let promptConfirm = window.confirm("You selected a length of: " + passwordLength + ", and you selected the character type(s) of: " + characterType + ". Is this correct?");
     if(promptConfirm) {
-        window.alert("Thank you. Please click on 'Generate Password' for your password to be generated.");
+        window.alert("Thank you. You password will now be generated.");
     } else {
         window.alert("Sorry, please re-enter.")
         lengthPrompt();
@@ -17,7 +17,6 @@ let characterCheck = function(characterType, passwordLength) {
     } else {
         characterArr = characterType.split(' ');
     };
-    console.log(characterArr);
 
     // Checks for valid inputs. The variable 'x' helps keep track of whether the input is valid or not.
     let x = 0;
@@ -34,25 +33,26 @@ let characterCheck = function(characterType, passwordLength) {
     if(x == 0) {
         confirmPrompts(characterType, passwordLength);
     } else if(x > 0) {
-        characterPrompt();
+        characterPrompt(passwordLength);
     }
 }
 
-// Prompts user for input on their desired character types for the generated password.
+// Prompt user input for their desired character types for the generated password.
 let characterPrompt = function(passwordLength) {
     let characterType = window.prompt("Please specify which character types you wish to include. You must select at least one: Uppercase, Lowercase, Numeric, and/or Special.");
+    // Change their input to a lowercase string - this helps with user input validation.
     characterType = characterType.toLowerCase();
-    // Checks for any null inputs.
+    // Check for any null inputs.
     if(!characterType) {
         window.alert("You must select at least one character type.");
-        characterPrompt();
+        characterPrompt(passwordLength);
     } else {
         characterCheck(characterType, passwordLength);
         return characterType;
     }
 }
 
-// Prompts user for input on their desired length of the generated password.
+// Prompt user for input on their desired length of the generated password.
 let lengthPrompt = function() {
     passwordLength = window.prompt("Please select a length for your password. Length must be greater than 8 and fewer than 128.");
     // Changes their response from a string to an number.
@@ -61,25 +61,61 @@ let lengthPrompt = function() {
     // Checks for any null or invalid inputs. Restarts prompt if it is invalid.
     if(!passwordLength) {
         window.alert("Invalid entry, please select a valid length.");
-        lengthPrompt();
+        return lengthPrompt();
     }
 
     // Checks if their input meets the length requirements. Restarts prompt if it is invalid.
-    if(passwordLength <= 8 || passwordLength >= 128) {
+    if(passwordLength < 8 || passwordLength > 128) {
         window.alert("Invalid entry, please select a valid length.");
-        lengthPrompt();
+        return lengthPrompt();
     } 
+    // User input value that is returned to generatePassword() function.
     return passwordLength;
 }
 
-// Calls length() and characters() functions to begin prompts for the password.
+// Calls functions to start prompts and generate passwords.
 let generatePassword = function() {
     let passwordLength = lengthPrompt();
-    let characterType = characterPrompt(passwordLength);
-    console.log(passwordLength, characterType);
-    let password = passwordLength + " and " + characterType;
+    characterPrompt(passwordLength);
 
-    return password;
+    // List of all characters that can be included in the generated password.
+    let characterObj = {
+        "uppercase": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "lowercase": "abcdefghijklmnopqrstuvwxyz",
+        "numeric": "0123456789",
+        "special": '!"#$%&()*+,-./:;<=>?@[]^_`{}|~'
+    };
+
+    // Variable that is updated through the loop; this will eventually be the generated password.
+    let randomize = "";
+    // Loop through the characterObj depending on the random array and random character that is chosen.
+    for(let i = 0; i < passwordLength; i++) {
+        // Choose a random array based on user input.
+        let x = Math.floor(Math.random() * characterArr.length );
+        let value = characterArr[x];
+        let y = "";
+    
+        // Concatenates a specific character from the array that was specified above.
+        switch(value) {
+            case "uppercase":
+                y = Math.floor(Math.random() * characterObj.uppercase.length);
+                randomize = randomize.concat(characterObj.uppercase[y]);
+                break;
+            case "lowercase":
+                y = Math.floor(Math.random() * characterObj.lowercase.length);
+                randomize = randomize.concat(characterObj.lowercase[y]);
+                break;
+            case "numeric":
+                y = Math.floor(Math.random() * characterObj.numeric.length);
+                randomize = randomize.concat(characterObj.numeric[y]);
+                break;
+            case "special":
+                y = Math.floor(Math.random() * characterObj.special.length);
+                randomize = randomize.concat(characterObj.special[y]);
+                break;
+        }
+    }
+    return randomize;
 }
 
 // Get references to the #generate element.
