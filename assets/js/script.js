@@ -1,6 +1,8 @@
+let passwordLength = "";
+
 // Prompts user for input on the desired character types. They must include at least one.
 let confirmPrompts = function(characterType) {
-    let promptConfirm = window.confirm("You selected a length of:" + ", and you selected these characters: " + characterType + ", is this correct?");
+    let promptConfirm = window.confirm("You selected a length of: " + passwordLength + ", and you selected these characters: " + characterType + ", is this correct?");
     if(promptConfirm) {
         window.alert("Thank you. Password will now be generated.");
     } else {
@@ -15,16 +17,14 @@ let characterCheck = function(characterType) {
     let characterArr = [];
     if(characterType.search(',') >= 0) {
         characterArr = characterType.split(', ');
-        console.log(characterArr);
     } else {
         characterArr = characterType.split(' ');
-        console.log(characterArr);
     };
 
     // Checks for valid inputs. The variable 'x' helps keep track of whether the input is valid or not.
     let x = 0;
     for(let i = 0; i < characterArr.length; i++) {
-        if(characterArr[i] === "uppercase" || characterArr[i] === "lowercase" || characterArr[i] === "numeric" || characterArr[i] === "special characters") {
+        if(characterArr[i] === "uppercase" || characterArr[i] === "lowercase" || characterArr[i] === "numeric" || characterArr[i] === "special") {
             x = x + 0;
         } else {
             window.alert(characterArr[i] + " is invalid. Please try again.");
@@ -42,17 +42,22 @@ let characterCheck = function(characterType) {
 
 // Prompts user for input on their desired character types for the generated password.
 let characters = function() {
-    let characterType = window.prompt("Please specify which character types you wish to include. You must select at least one: Uppercase, Lowercase, Numeric, and/or Special Characters.");
+    let characterType = window.prompt("Please specify which character types you wish to include. You must select at least one: Uppercase, Lowercase, Numeric, and/or Special.");
     characterType = characterType.toLowerCase();
-    characterCheck(characterType);
+    // Checks for any null inputs.
+    if(!characterType) {
+        window.alert("You must select at least one character type.");
+        return characters();
+    } else {
+        characterCheck(characterType);
+    }
 }
 
 // Prompts user for input on their desired length of the generated password.
 let length = function() {
-    let passwordLength = window.prompt("Please select a length for your password. Length must be greater than 8 and fewer than 128.");
+    passwordLength = window.prompt("Please select a length for your password. Length must be greater than 8 and fewer than 128.");
     // Changes their response from a string to an number.
     passwordLength = parseInt(passwordLength);
-    console.log(passwordLength);
 
     // Checks for any null or invalid inputs. Restarts prompt if it is invalid.
     if(!passwordLength) {
@@ -69,7 +74,7 @@ let length = function() {
 
 // Calls length() and characters() functions to begin prompts for the password.
 let criteriaPrompts = function() {
-    //length();
+    length();
     characters();
 }
 
