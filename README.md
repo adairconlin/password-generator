@@ -11,6 +11,7 @@ To accomplish this, I was given starter code that initialized a function to kick
 
 ## How to use this tool:
 To see my finished product, visit [here](https://adairconlin.art/password-generator/)
+
 The page will look like this:
 
 ![preview](assets/images/screenshot.PNG)
