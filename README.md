@@ -1,5 +1,5 @@
 # Password Generator
-Password Generator is a tool that generates a password based on the users response to the given requirements. The requirements that the users must specify are simple:
+Password Generator is a tool that generates a password based on the users response to the given requirements. The requirements that the user must specify are simple:
 * Password length - The generated password must be at least 8 characters in length and no more than 128 characters in length.
 * Character Types - The generated password must include at least one of the following character types specified by the user: Uppercase, Lowercase, Numeric, and/or Special Characters.
 
@@ -16,4 +16,4 @@ The page will look like this:
 
 ![preview](assets/images/screenshot.PNG)
 
-All you have to do it select "Generate Password" and follow the prompts to specifiy what you want in your password!
+All you have to do is select "Generate Password" and follow the prompts to specifiy what you want in your password!
